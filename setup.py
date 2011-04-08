@@ -6,6 +6,7 @@ setup(name='miniREST',
       version='0.1',
       description='Minimalistic REST client library',
       author='Rytis Sileika',
+      author_email='rytis.sileika@gmail.com',
       url='http://github.com/rytis/miniREST/',
       packages=['miniREST',],
       classifiers=[

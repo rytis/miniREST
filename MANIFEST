@@ -1,0 +1,6 @@
+README
+setup.py
+LICENSE
+NOTICE
+miniREST/__init__.py
+miniREST/client.py
