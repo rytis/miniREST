@@ -47,8 +47,13 @@ class RESTClient(object):
             for key in kwargs:
                 if key.startswith('data_'):
                     http_body = getattr(self, "_build_%s_payload" % key[5:])(kwargs[key])
-        c = httplib.HTTPConnection(self._url)
-        c.request(self._method, resource, body=http_body, headers=self.headers)
+        if self._url.startswith('https://'):
+            c = httplib.HTTPSConnection(self._url[8:])
+        elif self._url.startswith('http://'):
+            c = httplib.HTTPConnection(self._url[7:])
+        else:
+            c = httplib.HTTPConnection(self._url)
+        c.request(self._method.upper(), resource, body=http_body, headers=self.headers)
         resp = c.getresponse()
         rest_obj = RESTResource()
         rest_obj.status = resp.status
