@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='miniREST',
-      version='0.1',
+      version='0.2',
       description='Minimalistic REST client library',
       author='Rytis Sileika',
       author_email='rytis.sileika@gmail.com',
