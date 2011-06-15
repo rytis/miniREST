@@ -1,4 +1,6 @@
 import httplib
+import base64
+import string
 
 
 class RESTResource(object):
@@ -24,15 +26,19 @@ class RESTClient(object):
         c.put('/api/v1/resource/instance1/', data_json={'params': ['res1a', 'res1b']})
         c.post('/api/v1/resource/', data_json={'name': 'instance2', 'params': ['res2a', 'res2b']})
         c.delete('/api/v1/resource/instance1/')
+        c = RESTClient('https://secret-api.example.com', username='user1', password='secret1')
     """
 
-    def __init__(self, url):
+    def __init__(self, url, username=None, password=None):
         self._method = None
         self._url = url
         if self._url.endswith('/'):
             self._url = self._url[:-1]
         self.headers = {'Content-Type': 'application/json',
                         'Accept': 'application/json'}
+        if username and password:
+            auth_string = 'Basic ' + string.strip(base64.encodestring(username + ':' + password))
+            self.headers['Authorization'] = auth_string
 
     def _build_json_payload(self, data):
         try:
